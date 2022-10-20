@@ -12,6 +12,10 @@ import './styles/app.css';
 import './bootstrap';
 
 import keys from './components/keys';
+import axios from 'axios';
+
+let currentRow = 0
+let currentTile = 0
 
 
 const keyContainer = document.querySelector('.key-container')
@@ -40,12 +44,49 @@ gameRows.forEach((row, rowIndex) => {
     gameContainer.append(rowElement)
     row.forEach((_rowTile, rowTileIndex) => {
         const tileElement = document.createElement('div')
-        tileElement.setAttribute('id', 'row-' + rowIndex + 'tile' + rowTileIndex)
+        tileElement.setAttribute('id', 'row-' + rowIndex + '-tile-' + rowTileIndex)
         tileElement.classList.add('tile')
         rowElement.append(tileElement)
     })
 })
 
 const onClick = (key) => {
-    console.log(key)
+    if (key === 'ENTER') {
+        if (currentTile === 5) {
+            sendRequest(gameRows[currentRow])
+        } else {
+            console.log('not full row enter')
+        }
+
+    } else if (key === 'BACKSPACE') {
+        if (currentTile > 0) {
+            currentTile --
+            const currentTileElement = document.getElementById('row-' + currentRow + '-tile-' + currentTile)
+            gameRows[currentRow][currentTile] = ''
+            currentTileElement.textContent = ''
+        } else {
+            console.log('no letters backspace')
+        }
+
+    } else {
+        if (currentTile < 5) {
+            const currentTileElement = document.getElementById('row-' + currentRow + '-tile-' + currentTile)
+            gameRows[currentRow][currentTile] = key
+            currentTileElement.textContent = key
+            currentTile ++
+        }
+        else {
+            console.log("full row")
+        }
+    }
+}
+
+const sendRequest = () => {
+    axios.post('/api/word',{
+        'data': gameRows[currentRow]
+    })
+    .then((response) => {
+        console.log(response.data)
+    })
+
 }

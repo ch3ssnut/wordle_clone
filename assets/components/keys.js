@@ -26,7 +26,7 @@ const keys = [
     'B',
     'N',
     'M',
-    '«',
+    'BACKSPACE',
 ]
 
 export default keys;

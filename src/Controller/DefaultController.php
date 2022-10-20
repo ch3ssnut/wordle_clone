@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,13 +19,11 @@ class DefaultController extends AbstractController
     }
 
     #[Route('/api/word', name: 'word')]
-    public function checkWord(): JsonResponse
+    public function checkWord(Request $request): JsonResponse
     {
 
-
-
-        $input = ['o', 'l', 'k', 'c', 'o'];
-        $word = ['k', 'n', 'o', 'c', 'k'];
+        $input = json_decode($request->getContent())->data;
+        $word = ['K', 'N', 'O', 'C', 'K'];
         $output = [];
 
         // for loop to check if letters are in exact same positions, if they're replace them with null so they won't be used further
