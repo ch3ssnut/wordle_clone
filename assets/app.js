@@ -16,6 +16,7 @@ import axios from 'axios';
 
 let currentRow = 0
 let currentTile = 0
+let gameOver = false
 
 
 const keyContainer = document.querySelector('.key-container')
@@ -52,7 +53,7 @@ gameRows.forEach((row, rowIndex) => {
 
 const onClick = (key) => {
     if (key === 'ENTER') {
-        if (currentTile === 5) {
+        if (currentTile === 5 && gameOver === false) {
             sendRequest(gameRows[currentRow])
         } else {
             console.log('not full row enter')
@@ -86,7 +87,22 @@ const sendRequest = () => {
         'data': gameRows[currentRow]
     })
     .then((response) => {
-        console.log(response.data)
+        const data = response.data
+        if (data === false) {
+            console.log('no such word')
+        } else {
+            data.forEach((val, key) => {
+                const tileToColor = document.getElementById('row-' + currentRow + '-tile-' + key)
+                tileToColor.classList.add(val['color'])
+            })
+        }
+
+        if (currentRow === 5) {
+            gameOver = true
+            return
+        }
+        currentRow++
+        currentTile = 0
     })
 
 }

@@ -29,7 +29,7 @@ class DefaultController extends AbstractController
         // for loop to check if letters are in exact same positions, if they're replace them with null so they won't be used further
         for ($i = 0; $i < 5; $i++) {
             if ($input[$i] === $word[$i]) {
-                $output[$i] = [$input[$i] => 'green'];
+                $output[$i] = ['color' => 'green'];
                 $word[$i] = null;
                 $input[$i] = null;
             }
@@ -42,13 +42,13 @@ class DefaultController extends AbstractController
             }
             for ($k = 0; $k < 5; $k++) {
                 if ($input[$j] === $word[$k]) {
-                    $output[$j] = [$input[$j] => 'yellow'];
+                    $output[$j] = ['color' => 'yellow'];
                     $input[$j] = null;
                     $word[$k] = null;
                     break;
                 }
                 if ($k === 4) {
-                    $output[$j] = [$input[$j] => 'grey'];
+                    $output[$j] = ['color' => 'grey'];
                 }
             }
         }

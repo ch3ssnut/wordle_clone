@@ -42,7 +42,17 @@ body {
     width: 68px;
 }
 
+.grey {
+    background-color: grey;
+}
 
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
 
 .game-container div {
     display: flex;
