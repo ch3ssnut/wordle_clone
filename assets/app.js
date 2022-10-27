@@ -51,12 +51,29 @@ gameRows.forEach((row, rowIndex) => {
     })
 })
 
+document.getElementById('BACKSPACE').textContent = '⌫'
+
+document.addEventListener('keydown', (event) => {
+    if (event.repeat) return
+    const keyUpperCase = event.key.toUpperCase()
+    if (keys.includes(keyUpperCase)) {
+        onClick(keyUpperCase)
+    }
+})
+
 const onClick = (key) => {
+    if (gameOver) return
+    
     if (key === 'ENTER') {
         if (currentTile === 5 && gameOver === false) {
             sendRequest(gameRows[currentRow])
         } else {
-            console.log('not full row enter')
+            const shakeRow = document.getElementById('row-' + currentRow)
+            shakeRow.classList.remove('shake')
+            shakeRow.offsetHeight
+            shakeRow.classList.add('shake')
+
+
         }
 
     } else if (key === 'BACKSPACE') {
@@ -91,9 +108,14 @@ const sendRequest = () => {
         if (data === false) {
             console.log('no such word')
         } else {
+            let timer = 0
             data.forEach((val, key) => {
                 const tileToColor = document.getElementById('row-' + currentRow + '-tile-' + key)
-                tileToColor.classList.add(val['color'])
+                setTimeout(() => {
+                    tileToColor.classList.add(val['color'])
+                    tileToColor.classList.add('flip')
+                }, timer);
+                timer += 500
             })
         }
 
