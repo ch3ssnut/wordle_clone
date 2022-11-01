@@ -62,4 +62,5 @@ class Words
 
         return $this;
     }
+
 }

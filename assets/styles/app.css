@@ -48,15 +48,15 @@ body {
 }
 
 .grey {
-    background-color: #3a3a3c;
+    background-color: #3a3a3c !important;
 }
 
 .green {
-    background-color: #538d4e;
+    background-color: #538d4e !important;
 }
 
 .yellow {
-    background-color: #b59f3b;
+    background-color: #b59f3b !important;
 }
 
 .game-container div {
