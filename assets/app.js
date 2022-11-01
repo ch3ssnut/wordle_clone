@@ -190,6 +190,7 @@ const sendRequest = () => {
             // if all letters were "green" game is over and user can't input more
             if (goodLettersCounter === 5) {
                 gameOver = true
+                
             }
             // reset letter position and increment row
             goodLettersCounter = 0
