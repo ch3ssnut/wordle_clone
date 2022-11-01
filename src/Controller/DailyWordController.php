@@ -23,7 +23,7 @@ class DailyWordController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        dd($oldWord);
+
         if ($oldWord)
         {
             $oldWord[0]->setWasUsed(true);

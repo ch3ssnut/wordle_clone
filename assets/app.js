@@ -23,7 +23,7 @@ const date = new Date()
 const keyContainer = document.querySelector('.key-container')
 const gameContainer = document.querySelector('.game-container')
 
-const gameRows = [
+let gameRows = [
     ['', '', '', '', ''],
     ['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -32,7 +32,7 @@ const gameRows = [
     ['', '', '', '', '']
 ]
 
-const colorRows = [
+let colorRows = [
     ['', '', '', '', ''],
     ['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -67,8 +67,7 @@ document.getElementById('BACKSPACE').textContent = '⌫'
 
 
 // clear localStorage if it's next day
-if (date.toUTCString().slice(0,16) != window.localStorage.getItem('date').slice(0,16)) {
-    window.localStorage.removeItem('currentTile')
+if (window.localStorage.getItem('date') && date.toUTCString().slice(0,16) != window.localStorage.getItem('date').slice(0,16)) {
     window.localStorage.removeItem('currentRow')
     window.localStorage.removeItem('gameRows')
     window.localStorage.removeItem('colorRows')
@@ -76,8 +75,29 @@ if (date.toUTCString().slice(0,16) != window.localStorage.getItem('date').slice(
     window.localStorage.removeItem('date')
 }
 
-// get data from localStorage and add data to board and keyboard
 
+// get data from localStorage and add data to board and keyboard
+if (window.localStorage.getItem('currentRow') >= 1) {
+    // setting initial values to those saved in localStorage
+    currentRow =  window.localStorage.getItem('currentRow')
+    gameOver = (window.localStorage.getItem('gameOver') === 'true')
+    const localGameRows = JSON.parse(window.localStorage.getItem('gameRows'))
+    const localColorRows = JSON.parse(window.localStorage.getItem('colorRows'))
+    gameRows = localGameRows
+    colorRows = localColorRows
+
+    // populating board game and adding color classes
+    for (let i = 0; i < currentRow; i++) {
+        for (let j = 0; j <= 4; j++) {
+            const tileToFill = document.getElementById('row-' + i + '-tile-' + j)
+            tileToFill.classList.add(colorRows[i][j], 'flip')
+            tileToFill.textContent = gameRows[i][j]
+            const keyToFill = document.getElementById(gameRows[i][j])
+            keyToFill.classList.add(colorRows[i][j], 'flip')
+        }
+
+    }
+}
 
 // listening to keypress
 document.addEventListener('keydown', (event) => {
@@ -132,7 +152,6 @@ const onClick = (key) => {
         }
     }
 }
-console.log(window.localStorage.getItem('date').slice(0,16))
 
 // send request to API
 const sendRequest = () => {
@@ -171,8 +190,6 @@ const sendRequest = () => {
             // if all letters were "green" game is over and user can't input more
             if (goodLettersCounter === 5) {
                 gameOver = true
-                addToLocaStorage()
-                return
             }
             // reset letter position and increment row
             goodLettersCounter = 0
@@ -191,7 +208,6 @@ const sendRequest = () => {
 
 
 const addToLocaStorage = () => {
-    window.localStorage.setItem('currentTile', currentTile)
     window.localStorage.setItem('currentRow', currentRow)
     window.localStorage.setItem('gameRows', JSON.stringify(gameRows))
     window.localStorage.setItem('colorRows', JSON.stringify(colorRows))

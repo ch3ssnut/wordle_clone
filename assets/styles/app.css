@@ -90,6 +90,17 @@ body {
     animation-duration: 1s;
 }
 
+.popup {
+    position: absolute;
+
+    top: 25%;
+    left: 45%;
+    text-align: center;
+    border-radius: 10px;
+    background: black;
+    box-shadow: 0px 0px 10px 0px black;
+}
+
 @keyframes flip {
     0% {
         -webkit-transform: perspective(400px) rotateY(90deg);
