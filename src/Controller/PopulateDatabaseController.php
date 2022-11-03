@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PopulateDatabaseController extends AbstractController
 {
-    #[Route('/populate', name: 'app_populate_database')]
+    // #[Route('/populate', name: 'app_populate_database')]
     public function index(EntityManagerInterface $entityManagerInterface, AllWords $allWords): Response
     {
 
