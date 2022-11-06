@@ -37,7 +37,6 @@ class DailyWordController extends AbstractController
             ->setMaxResults(1)
             ->getResult();
         
-        // dd($newWord);
         $newWord[0]->setCurrentWord(true);
         $entityManagerInterface->flush();
 

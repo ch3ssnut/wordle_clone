@@ -93,7 +93,13 @@ if (window.localStorage.getItem('currentRow') >= 1) {
             tileToFill.classList.add(colorRows[i][j], 'flip')
             tileToFill.textContent = gameRows[i][j]
             const keyToFill = document.getElementById(gameRows[i][j])
-            keyToFill.classList.add(colorRows[i][j], 'flip')
+            keyToFill.classList.add('flip', colorRows[i][j])
+            if (keyToFill.className.includes('grey')) {
+                keyToFill.classList.replace('grey', colorRows[i][j])
+            } 
+            else if (keyToFill.className.includes('yellow') && colorRows[i][j] != 'grey') {
+                keyToFill.classList.replace('yellow', colorRows[i][j])
+            }
         }
 
     }
@@ -180,8 +186,10 @@ const sendRequest = () => {
                 colorRows[currentRow][key] = val['color']
                 // add colors to keyboard's letters
                 const keyboardLetter = document.getElementById(gameRows[currentRow][key])
+                keyboardLetter.classList.replace('yellow', 'green')
                 keyboardLetter.classList.add(val['color'])
                 keyboardLetter.classList.add('flip')
+                console.log(keyboardLetter.className)
                 if (val['color'] === 'green') {
                     goodLettersCounter++
                 }
