@@ -5,7 +5,7 @@
 
 ## General informations
 This project is Wordle-clone. It uses PHP framework - Symfony for API backend and HTML/CSS/JS for frontend. User has 6 guesses to guess correct 
-word. If letter is in the correct spot it turns green, if letter is correct but on the wrong spot it turns yellow and if letter is not present in the word it turns grey.
+word. If letter is in the correct spot it turns green, if letter is correct but in the wrong spot it turns yellow and if letter is not present in the word it turns grey.
 Javascript is used to handle game rendering and also to use local storage to store guesses taken in current day (resets daily UTC time zone). 
 
 ## Technologies
