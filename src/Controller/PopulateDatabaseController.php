@@ -38,7 +38,7 @@ class PopulateDatabaseController extends AbstractController
         $entityManagerInterface->clear();
 
 
-        $repo = $entityManagerInterface->getRepository(Words::class);
+        // $repo = $entityManagerInterface->getRepository(Words::class);
         
 
         return $this->redirectToRoute('app_default');

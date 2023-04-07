@@ -49,7 +49,7 @@ class DefaultController extends AbstractController
         }
         $word = str_split(strtoupper($wordRep->getName()));
         $output = [];
-        // TODO: after all green player wins
+
 
         // for loop to check if letters are in exact same positions, if they're replace them with null so they won't be used further
         for ($i = 0; $i < 5; $i++) {
