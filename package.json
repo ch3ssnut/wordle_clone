@@ -18,7 +18,7 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "heroku-postbuild" : "encore production"
+        "build" : "encore production"
 
     },
     "dependencies": {
