@@ -33,9 +33,7 @@ class DefaultController extends AbstractController
         $wordRep = $repository->findOneBy(
             ['currentWord' => true]
         );
-        dump($wordRep);
-        $a = 'xxxx';
-        dump($a);
+       
 
         // if word is not present in database send empty response
         if (!in_array(strtolower(implode('', $input)), $allWords->getAllWords()))
