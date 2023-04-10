@@ -28,5 +28,9 @@ RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-inte
 # copy application files to default directory
 COPY . .
 
+# migrations
+RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+
+
 # run composer dump-autload 
 RUN composer dump-autoload --optimize
