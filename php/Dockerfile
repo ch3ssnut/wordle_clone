@@ -2,9 +2,6 @@ FROM php:8.1-fpm-alpine
 
 
 
-RUN apk update
-RUN apk add vim
-
 
 # install php with pgsql
 RUN set -ex \
@@ -29,7 +26,7 @@ RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-inte
 COPY . .
 
 # migrations
-RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+CMD ["php", "bin/console", "doctrine:migrations:migrate", "--no-interaction", "--allow-no-migration"]
 
 
 # run composer dump-autload 
