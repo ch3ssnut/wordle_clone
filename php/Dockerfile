@@ -46,8 +46,7 @@ COPY --link  . ./
 RUN composer dump-autoload --classmap-authoritative --no-dev; \
 		composer dump-env prod; \
 		composer run-script --no-dev post-install-cmd; \
-		chmod +x bin/console; sync; \
-    fi
+
 
 # # migrations
 # CMD ["php", "bin/console", "doctrine:migrations:migrate", "--no-interaction", "--allow-no-migration"]
