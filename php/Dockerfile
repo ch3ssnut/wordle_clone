@@ -32,11 +32,8 @@ COPY --from=composer --link /composer /usr/bin/composer
 
 # copy composer.lock and composer.json
 COPY --link composer.* symfony.* ./
-RUN set -eux; \
-    if [ -f composer.json ]; then \
-		composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
-		composer clear-cache; \
-    fi
+RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
+		composer clear-cache; 
 
 
 # install bundles from composer.json with options for deployment
