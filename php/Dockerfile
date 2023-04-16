@@ -1,4 +1,5 @@
-FROM php:8.1-fpm-alpine
+FROM richarvey/nginx-php-fpm:1.9.1
+
 
 
 
@@ -8,7 +9,14 @@ RUN set -ex \
   && apk --no-cache add \
     postgresql-dev
 
-RUN docker-php-ext-install pdo pdo_pgsql pgsql
+RUN docker-php-ext-install pdo pdo_pgsql
+
+
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
@@ -20,7 +28,7 @@ COPY --from=composer:2.4 /usr/bin/composer /usr/bin/composer
 COPY ./composer.* ./
 
 # install bundles from composer.json with options for deployment
-RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
+# RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
 
 # copy application files to default directory
 COPY . .
@@ -28,6 +36,8 @@ COPY . .
 # # migrations
 # CMD ["php", "bin/console", "doctrine:migrations:migrate", "--no-interaction", "--allow-no-migration"]
 
+CMD ["/start.sh"]
+
 
 # run composer dump-autload 
-RUN composer dump-autoload --optimize
+# RUN composer dump-autoload --optimize
