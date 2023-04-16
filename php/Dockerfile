@@ -45,7 +45,7 @@ COPY --link  . ./
 
 RUN composer dump-autoload --classmap-authoritative --no-dev; 
 # RUN composer dump-env prod; 
-RUN composer run-script --no-dev post-install-cmd; 
+# RUN composer run-script --no-dev post-install-cmd; 
 
 
 # # migrations
