@@ -1,9 +1,7 @@
-FROM composer/composer:2-bin AS composer
-
 FROM richarvey/nginx-php-fpm:2.1.0
 
 
-
+RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash
 
 # install php with pgsql
 RUN set -ex \
@@ -28,7 +26,8 @@ ENV APP_ENV=prod
 
 
 # get composer using multi-stage build
-COPY --from=composer --link /composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install --no-interaction
 
 # copy composer.lock and composer.json
 COPY --link composer.* symfony.* ./
