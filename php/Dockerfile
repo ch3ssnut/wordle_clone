@@ -1,7 +1,7 @@
 FROM richarvey/nginx-php-fpm:2.1.0
 
 
-RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash
+RUN apk add --no-cache curl git build-base zlib-dev zip oniguruma-dev autoconf bash
 
 # install php with pgsql
 RUN set -ex \
@@ -28,7 +28,7 @@ ENV APP_ENV=prod
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # copy composer.lock and composer.json
-COPY --link composer.* symfony.* ./
+COPY composer.* symfony.* ./
 RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
 		composer clear-cache; 
 
@@ -37,7 +37,7 @@ RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-pr
 # RUN composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
 
 # copy application files to default directory
-COPY --link  . ./
+COPY . .
 
 
 RUN composer dump-autoload --classmap-authoritative --no-dev; 
