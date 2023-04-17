@@ -18,7 +18,6 @@ ENV RUN_SCRIPTS 1
 ENV REAL_IP_HEADER 1
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 
 ENV APP_ENV=prod
@@ -27,7 +26,6 @@ ENV APP_ENV=prod
 
 # get composer using multi-stage build
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install --no-interaction
 
 # copy composer.lock and composer.json
 COPY --link composer.* symfony.* ./
